@@ -173,6 +173,14 @@ class Brakeman::Checks
                @checks
              end
 
+    if enabled_checks = tracker.options[:enable_checks]
+      @optional_checks.each do |c|
+        if enabled_checks.include? self.get_check_name(c)
+          to_run << c
+        end
+      end
+    end
+
     self.filter_checks to_run, tracker
   end
 
